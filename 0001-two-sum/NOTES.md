@@ -1,1 +1,1 @@
-​
+This solution is done using hashmap. The time complexity for the solution is O(n) and space complexity is O(n).
