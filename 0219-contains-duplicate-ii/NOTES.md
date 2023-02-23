@@ -1,0 +1,1 @@
+If hashMap contains key, we check the difference of key index with the k. If satisfy, we return true else we add new index to hashmap.
