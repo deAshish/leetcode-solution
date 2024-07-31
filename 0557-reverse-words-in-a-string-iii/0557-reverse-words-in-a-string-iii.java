@@ -1,8 +1,8 @@
 class Solution {
     public String reverseWords(String s) {
         //Converting sentence into string array
-        String[] strArray = null;
-        strArray = s.split(" ");
+        String[] strArray = s.split(" ");
+        // strArray = s.split(" ");
         
         for(int i=0; i<strArray.length;i++){
             //Calling reverse function to reverse each string from string array
@@ -13,7 +13,7 @@ class Solution {
     }
     
     // Function to reverse string
-    public static String reverseStr(String string){
+    public String reverseStr(String string){
         char[] charArray = string.toCharArray();
         int left= 0;
         int right = string.length()-1;
@@ -21,9 +21,9 @@ class Solution {
         // Looping through array of character to reverse it
         while(left < right){
             char temp = charArray[left];
-            charArray[left] = charArray[right];
-            charArray[right] = temp;
-            left++; right--;
+            charArray[left++] = charArray[right];
+            charArray[right--] = temp;
+            
         }
         return String.valueOf(charArray);
     }
