@@ -1,21 +1,24 @@
 class Solution {
     public int firstMissingPositive(int[] nums) {
-        Set<Integer> positiveSet = new TreeSet<>();
-        for(int i=0; i< nums.length; i++){
-            if(nums[i] >0){
-                positiveSet.add(nums[i]);
+        int n = nums.length;
+
+        // storing values to their correspoinding index
+        for(int i=0; i< n; i++){
+            while( nums[i] >=1 && nums[i] <= n && nums[i] != nums[nums[i] -1]){
+                
+                //swap value to its desire index
+                int temp = nums[i];
+                nums[i] = nums[nums[i] -1];
+                nums[temp -1] =temp;
             }
         }
-        
-        int check =1;
-        for(Integer positiveDigit: positiveSet){
-            if(positiveDigit >  check){
-                break;
-            }
-            else{
-                check++;
+
+        //looping through array to find missing value
+        for(int i=1; i <=n; i++){
+            if(i != nums[i -1]){
+                return i;
             }
         }
-        return check;
+        return n+1;
     }
 }
