@@ -5,38 +5,30 @@ class Solution {
 
         if(n> m) return false;
 
-        //Map to store count of every character in s1 string
-        HashMap<Character, Integer> s1Count = new HashMap<>();
-
-        //Map to add count of every character in s2.
-        HashMap<Character, Integer> windowCount = new HashMap<>();
+        int[] s1Count = new int[26];
+        int[] windowCount = new int[26];
 
         for(int i=0; i< n; i++){
-            s1Count.put(s1.charAt(i), s1Count.getOrDefault(s1.charAt(i), 0) +1);
-        //Adding every character of s2 till size of s1
-            windowCount.put(s2.charAt(i), windowCount.getOrDefault(s2.charAt(i), 0) +1);
+            s1Count[s1.charAt(i) -'a']++;
+            windowCount[s2.charAt(i) -'a']++;
         }
-
-        if(windowCount.equals(s1Count)) return true;
+        if(matches(s1Count, windowCount)) return true;
 
         for(int i=n; i< m; i++){
-            char addChar = s2.charAt(i);
-            char removeChar = s2.charAt(i-n);
+            windowCount[s2.charAt(i)-'a']++;
 
-            //Add current character to the window
-            windowCount.put(addChar, windowCount.getOrDefault(addChar, 0)+1);
-            
-            //remove character that is left behind window
-            if(windowCount.get(removeChar) ==1){
-                windowCount.remove(removeChar);
-            }else{
-                windowCount.put(removeChar, windowCount.getOrDefault(removeChar, 0)-1);
-            }
+            windowCount[s2.charAt(i-n)-'a']--;
 
-            //compare window with s1 count
-            if(windowCount.equals(s1Count)) return true;
+            if(matches(s1Count, windowCount)) return true;
         }
-        return false;
-       
+
+       return false;
+    }
+    //Helper function to compare two frequency arrays...
+    private boolean matches(int[] s1Count, int[] windowCount){
+        for(int i=0; i< 26; i++){
+            if(s1Count[i] != windowCount[i]) return false;
+        }
+        return true;
     }
 }
