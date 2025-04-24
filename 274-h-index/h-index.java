@@ -1,17 +1,27 @@
 class Solution {
     public int hIndex(int[] citations) {
-        //using in build sort function to sort array
-        Arrays.sort(citations);
-        int totalPaper = citations.length;
-        int hIndex = 0;
+        //using bucket counting
+        int totalPaper =citations.length;
+        int[] bucket = new int[totalPaper+1];
 
-        for(int i=0; i< totalPaper; i++){
-            int paperIndex = totalPaper -i;
-            if(citations[i] >= paperIndex){
-                hIndex++;
-            }
+        for(int n: citations){
 
+            if(n >= totalPaper){
+                bucket[totalPaper]++;  
+            } 
+            else {
+                bucket[n]++; 
+                }
         }
-        return hIndex;
+        //now checking from higher to lower
+        int total =0;
+        for(int i= totalPaper; i>=0; i--){
+            total +=bucket[i];
+                
+                if(total >=i){
+                    return i;
+                }
+        }
+        return 0;
     }
 }
